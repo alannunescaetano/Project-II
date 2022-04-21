@@ -73,3 +73,10 @@ crashlytics-build.properties
 
 # Training datasets
 TextIdentificationService/datasets/
+
+
+*.bin
+*.dll
+*.o
+*.so
+ARApp/ARApp/Library/Il2cppBuildCache/
