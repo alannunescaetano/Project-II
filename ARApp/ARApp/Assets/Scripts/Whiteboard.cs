@@ -5,7 +5,7 @@ public class Whiteboard : MonoBehaviour
 {
     private TextMeshPro _text;
     private Syllable[] syllables;
-    private string[] strSyllables = { "PA"};
+    private string[] strSyllables = { "PA", "LA", "VRA" };
     
     private int x = 0;
     
@@ -21,14 +21,14 @@ public class Whiteboard : MonoBehaviour
     void Update()
     {
         // TEST
-        /*x++;
+        x++;
         if (x > 500)
         {
             x = 0;
             highlightedSyllableIndex++;
             if (highlightedSyllableIndex > 2)
                 highlightedSyllableIndex = 0;
-        }*/
+        }
         
         highlightSyllable(highlightedSyllableIndex);
         //highlightCharacters(0, 7);
@@ -82,50 +82,11 @@ public class Whiteboard : MonoBehaviour
         
         var info = _text.textInfo;
         
-        int meshIndex = info.characterInfo[0].materialReferenceIndex;
-        int vertexIndex = _text.textInfo.characterInfo[0].vertexIndex;
-        
-        Color32[] vertexColors = info.meshInfo[meshIndex].colors32;
-        
-        if (vertexColors != null)
+        for (int charIndex = 0; charIndex < info.characterCount; charIndex++)
         {
-            // print(charIndex + " " + info.characterInfo[charIndex].character + " " + color);
-            vertexColors[vertexIndex + 0] = highlightColor;
-            vertexColors[vertexIndex + 1] = highlightColor;
-            vertexColors[vertexIndex + 2] = highlightColor;
-            vertexColors[vertexIndex + 3] = highlightColor;
-        }
-        
-        meshIndex = info.characterInfo[1].materialReferenceIndex;
-        vertexIndex = _text.textInfo.characterInfo[1].vertexIndex;
-        
-        vertexColors = info.meshInfo[meshIndex].colors32;
-        
-        if (vertexColors != null)
-        {
-            // print(charIndex + " " + info.characterInfo[charIndex].character + " " + color);
-            vertexColors[vertexIndex + 0] = highlightColor;
-            vertexColors[vertexIndex + 1] = highlightColor;
-            vertexColors[vertexIndex + 2] = highlightColor;
-            vertexColors[vertexIndex + 3] = highlightColor;
-        }
-        
-        meshIndex = info.characterInfo[2].materialReferenceIndex;
-        vertexIndex = _text.textInfo.characterInfo[2].vertexIndex;
-        
-        vertexColors = info.meshInfo[meshIndex].colors32;
-        
-        if (vertexColors != null)
-        {
-            // print(charIndex + " " + info.characterInfo[charIndex].character + " " + color);
-            vertexColors[vertexIndex + 0] = initialColor;
-            vertexColors[vertexIndex + 1] = initialColor;
-            vertexColors[vertexIndex + 2] = initialColor;
-            vertexColors[vertexIndex + 3] = initialColor;
-        }
-        
-        /*for (int charIndex = 0; charIndex < info.characterCount; charIndex++)
-        {
+            if (string.IsNullOrWhiteSpace(info.characterInfo[charIndex].character.ToString()))
+                continue;
+            
             int meshIndex = info.characterInfo[charIndex].materialReferenceIndex;
             int vertexIndex = _text.textInfo.characterInfo[charIndex].vertexIndex;
         
@@ -133,13 +94,13 @@ public class Whiteboard : MonoBehaviour
             if (vertexColors != null)
             {
                 Color color = charIndex >= startCharIndex && charIndex <= endCharIndex ? highlightColor : initialColor;
-                print(charIndex + " " + info.characterInfo[charIndex].character + " " + color);
+                
                 vertexColors[vertexIndex + 0] = color;
                 vertexColors[vertexIndex + 1] = color;
                 vertexColors[vertexIndex + 2] = color;
                 vertexColors[vertexIndex + 3] = color;
             }
-        }*/
+        }
         
         _text.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
     }
