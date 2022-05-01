@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - ARPlaceWhiteboard
     - Whiteboard
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
@@ -20,10 +21,9 @@ ScriptsOnlyBuild:
     - UnityEngine.XR.ARFoundation.ARCameraBackground
     - UnityEngine.XR.ARFoundation.ARCameraManager
     - UnityEngine.XR.ARFoundation.ARInputManager
-    - UnityEngine.XR.ARFoundation.ARPlane
     - UnityEngine.XR.ARFoundation.ARPlaneManager
-    - UnityEngine.XR.ARFoundation.ARPlaneMeshVisualizer
     - UnityEngine.XR.ARFoundation.ARPoseDriver
+    - UnityEngine.XR.ARFoundation.ARRaycastManager
     - UnityEngine.XR.ARFoundation.ARSession
     - UnityEngine.XR.ARFoundation.ARSessionOrigin
     Unity.XR.Management.Editor.dll:
@@ -57,8 +57,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
-    - Class: 64
-      Script: {instanceID: 0}
     - Class: 89
       Script: {instanceID: 0}
     - Class: 104
@@ -66,40 +64,38 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1520}
+      Script: {instanceID: 1638}
     - Class: 114
-      Script: {instanceID: 1642}
+      Script: {instanceID: 1812}
     - Class: 114
-      Script: {instanceID: 1816}
+      Script: {instanceID: 2160}
     - Class: 114
-      Script: {instanceID: 2164}
+      Script: {instanceID: 2562}
     - Class: 114
-      Script: {instanceID: 2566}
+      Script: {instanceID: 3404}
     - Class: 114
       Script: {instanceID: 3408}
     - Class: 114
-      Script: {instanceID: 3412}
+      Script: {instanceID: 3480}
     - Class: 114
-      Script: {instanceID: 3484}
+      Script: {instanceID: 3712}
     - Class: 114
-      Script: {instanceID: 3716}
+      Script: {instanceID: 3850}
     - Class: 114
-      Script: {instanceID: 3854}
+      Script: {instanceID: 3908}
     - Class: 114
-      Script: {instanceID: 3912}
+      Script: {instanceID: 4210}
     - Class: 114
-      Script: {instanceID: 4214}
+      Script: {instanceID: 4272}
     - Class: 114
-      Script: {instanceID: 4276}
+      Script: {instanceID: 4402}
     - Class: 114
-      Script: {instanceID: 4406}
+      Script: {instanceID: 4736}
     - Class: 114
-      Script: {instanceID: 4740}
+      Script: {instanceID: 4928}
     - Class: 114
-      Script: {instanceID: 4748}
+      Script: {instanceID: 18052}
     - Class: 115
-      Script: {instanceID: 0}
-    - Class: 120
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
@@ -532,7 +528,7 @@ ScriptsOnlyBuild:
     className: ARAnchorManager
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 8cebdb29ba3205a7616a91a84333cd03
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Whiteboard
@@ -1004,6 +1000,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: TMP_TextEventCheck
+  - hash:
+      serializedVersion: 2
+      Hash: 589e998d06ec8fe1f8e96bce21f6fde2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ARPlaceWhiteboard
   platform: 13
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

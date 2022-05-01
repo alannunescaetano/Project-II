@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Whiteboard : MonoBehaviour
 {
+    public bool isVisible;
     private TextMeshPro _text;
     private Syllable[] syllables;
     private string[] strSyllables = { "PA", "LA", "VRA" };
@@ -20,6 +21,9 @@ public class Whiteboard : MonoBehaviour
 
     void Update()
     {
+        if (!isVisible)
+            return;
+        
         // TEST
         x++;
         if (x > 500)
@@ -31,7 +35,6 @@ public class Whiteboard : MonoBehaviour
         }
         
         highlightSyllable(highlightedSyllableIndex);
-        //highlightCharacters(0, 7);
     }
 
     private void highlightSyllable(int highlightedSyllableIndex)
