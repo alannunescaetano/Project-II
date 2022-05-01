@@ -19,7 +19,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self._set_headers()
         self.wfile.write(json.dumps(predictionResult.__dict__).encode())
 
-        print(json.dumps(predictionResult))
+        print(json.dumps(predictionResult.__dict__).encode())
 
 def run():
     server_address = ('', 8088)

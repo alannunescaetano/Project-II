@@ -4,7 +4,7 @@ import numpy as np
 import imutils
 from imutils.contours import sort_contours
 from cv2 import cv2
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 import json
 
 class PredictionResult:
@@ -19,7 +19,7 @@ class Prediction:
         model = load_model(model_path)
         print(model_path)
 
-        image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\placa-perigo.png"
+        image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\.PNG"
         image = cv2.imread(image_path)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -60,20 +60,22 @@ class Prediction:
 
                 chars.append((padded, (x, y, w, h)))
 
-                chars = np.array([c[0] for c in chars], dtype="float32")
+        boxes = [b[1] for b in chars]
+        chars = np.array([c[0] for c in chars], dtype="float32")
 
-                preds = model.predict(chars)
+        preds = model.predict(chars)
 
-                labelNames = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                labelNames = [l for l in labelNames]
+        labelNames = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        labelNames = [l for l in labelNames]
 
-                predictionResult = PredictionResult()
+        predictionResult = PredictionResult()
 
-                for (pred, (x, y, w, h)) in zip(preds):
-                    i = np.argmax(pred)
-                    prob = pred[i]
-                    if prob > 0.8:
-                        label = labelNames[i]
-                        predictionResult.chars.append(labelNames[i])
+        for (pred, (x, y, w, h)) in zip(preds, boxes):
+            i = np.argmax(pred)
+            prob = pred[i]
+            print("prob:",prob)
+            if prob > 0.8:
+                print(labelNames[i])
+                predictionResult.chars.append(labelNames[i])
 
         return predictionResult
