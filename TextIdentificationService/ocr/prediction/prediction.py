@@ -17,9 +17,10 @@ class Prediction:
         model_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\model\trained_ocr_only_capital.model"
         print("[INFO] loading OCR model...")
         model = load_model(model_path)
-        print(model_path)
 
-        image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\.PNG"
+        #image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\biblioteca.png"
+        image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\afastese.png"
+        #image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\reservado.png"
         image = cv2.imread(image_path)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
@@ -35,7 +36,7 @@ class Prediction:
         for c in cnts:
             (x, y, w, h) = cv2.boundingRect(c)
 
-            if (w >= 20 and w <= 150) and (h >= 15 and h <= 120):
+            if (w >= 5 and w <= 150) and (h >= 15 and h <= 120):
                 roi = gray[y:y + h, x:x + w]
                 thresh = cv2.threshold(roi, 0, 255,
                     cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
@@ -73,7 +74,7 @@ class Prediction:
         for (pred, (x, y, w, h)) in zip(preds, boxes):
             i = np.argmax(pred)
             prob = pred[i]
-            print("prob:",prob)
+
             if prob > 0.8:
                 print(labelNames[i])
                 predictionResult.chars.append(labelNames[i])

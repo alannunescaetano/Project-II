@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class Whiteboard : MonoBehaviour
 {
+    private TextMeshPro _log;
     public bool isVisible;
     private TextMeshPro _text;
     private Syllable[] syllables;
     private string[] strSyllables = { "PA", "LA", "VRA" };
+    private bool spoke = false;
     
     private int x = 0;
     
@@ -14,7 +16,12 @@ public class Whiteboard : MonoBehaviour
     
     void Start()
     {
-        _text = this.GetComponentInChildren<TextMeshPro>();
+        var goText = GameObject.FindGameObjectsWithTag("Text")[0];
+        _text = goText.GetComponent<TextMeshPro>();
+        
+        var goLog = GameObject.FindGameObjectsWithTag("Log")[0];
+        _log = goLog.GetComponent<TextMeshPro>();
+        
         buildSyllables(strSyllables);
         writeWordOnBoard(syllables);
     }
@@ -24,13 +31,14 @@ public class Whiteboard : MonoBehaviour
         if (!isVisible)
             return;
         
-        // TEST
         x++;
-        if (x > 500)
+        if (x > 60)
         {
             x = 0;
+            spoke = false;
             highlightedSyllableIndex++;
-            if (highlightedSyllableIndex > 2)
+
+            if (highlightedSyllableIndex > strSyllables.Length)
                 highlightedSyllableIndex = 0;
         }
         
@@ -41,6 +49,17 @@ public class Whiteboard : MonoBehaviour
     {
         var highlightedSyllable = syllables[highlightedSyllableIndex];
         highlightCharacters(highlightedSyllable.InitialIndex, highlightedSyllable.EndIndex);
+
+        if (!spoke)
+        {
+            TTSManager.SetLocale("en");
+            //TTSManager.SetSpeechRate(1);
+            //TTSManager.SetPitch(1);
+            TTSManager.Speak(highlightedSyllable.Text);
+            _log.text = "\n"+highlightedSyllable.Text.Trim();
+            _log.text = "";
+            spoke = true;
+        }
     }
 
     private void buildSyllables(string[] strSyllables)

@@ -1,8 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
-    - ARPlaceWhiteboard
-    - Whiteboard
+    - CaptureButton
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -13,6 +12,7 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshPro
+    - TMPro.TextMeshProUGUI
     Unity.XR.ARCore.Editor.dll:
     - UnityEditor.XR.ARCore.ARCoreSettings
     Unity.XR.ARCore.dll:
@@ -21,9 +21,7 @@ ScriptsOnlyBuild:
     - UnityEngine.XR.ARFoundation.ARCameraBackground
     - UnityEngine.XR.ARFoundation.ARCameraManager
     - UnityEngine.XR.ARFoundation.ARInputManager
-    - UnityEngine.XR.ARFoundation.ARPlaneManager
     - UnityEngine.XR.ARFoundation.ARPoseDriver
-    - UnityEngine.XR.ARFoundation.ARRaycastManager
     - UnityEngine.XR.ARFoundation.ARSession
     - UnityEngine.XR.ARFoundation.ARSessionOrigin
     Unity.XR.Management.Editor.dll:
@@ -35,8 +33,15 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
+    UnityEngine.UI.dll:
+    - UnityEngine.EventSystems.EventSystem
+    - UnityEngine.EventSystems.StandaloneInputModule
+    - UnityEngine.UI.Button
+    - UnityEngine.UI.CanvasScaler
+    - UnityEngine.UI.GraphicRaycaster
+    - UnityEngine.UI.Image
   sceneClasses:
-    Assets/Scenes/SampleScene.unity:
+    Assets/Scenes/CaptureImageScene.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -64,37 +69,45 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1638}
+      Script: {instanceID: 1478}
     - Class: 114
-      Script: {instanceID: 1812}
+      Script: {instanceID: 1640}
     - Class: 114
-      Script: {instanceID: 2160}
+      Script: {instanceID: 1814}
     - Class: 114
-      Script: {instanceID: 2562}
+      Script: {instanceID: 2162}
     - Class: 114
-      Script: {instanceID: 3404}
+      Script: {instanceID: 2530}
+    - Class: 114
+      Script: {instanceID: 2564}
+    - Class: 114
+      Script: {instanceID: 2658}
+    - Class: 114
+      Script: {instanceID: 2714}
+    - Class: 114
+      Script: {instanceID: 2880}
+    - Class: 114
+      Script: {instanceID: 3098}
+    - Class: 114
+      Script: {instanceID: 3224}
     - Class: 114
       Script: {instanceID: 3408}
     - Class: 114
-      Script: {instanceID: 3480}
+      Script: {instanceID: 3412}
     - Class: 114
-      Script: {instanceID: 3712}
+      Script: {instanceID: 3716}
     - Class: 114
-      Script: {instanceID: 3850}
+      Script: {instanceID: 3914}
     - Class: 114
-      Script: {instanceID: 3908}
+      Script: {instanceID: 4216}
     - Class: 114
-      Script: {instanceID: 4210}
+      Script: {instanceID: 4278}
     - Class: 114
-      Script: {instanceID: 4272}
+      Script: {instanceID: 4328}
     - Class: 114
-      Script: {instanceID: 4402}
+      Script: {instanceID: 4410}
     - Class: 114
-      Script: {instanceID: 4736}
-    - Class: 114
-      Script: {instanceID: 4928}
-    - Class: 114
-      Script: {instanceID: 18052}
+      Script: {instanceID: 4746}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -102,6 +115,12 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
@@ -456,6 +475,12 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
+      Hash: 589e998d06ec8fe1f8e96bce21f6fde2
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ARPlaceWhiteboard
+  - hash:
+      serializedVersion: 2
       Hash: 8e6ceabfd38a184413d69b7db56c89cc
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
@@ -774,6 +799,12 @@ ScriptsOnlyBuild:
     className: ARRaycast
   - hash:
       serializedVersion: 2
+      Hash: b988d04f0ebb44a563b42039f931d16e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CaptureButton
+  - hash:
+      serializedVersion: 2
       Hash: 18c222bef9ae745ce69ddde9b74337ca
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
@@ -1000,13 +1031,7 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: TMPro.Examples
     className: TMP_TextEventCheck
-  - hash:
-      serializedVersion: 2
-      Hash: 589e998d06ec8fe1f8e96bce21f6fde2
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ARPlaceWhiteboard
   platform: 13
   scenePathNames:
-  - Assets/Scenes/SampleScene.unity
+  - Assets/Scenes/CaptureImageScene.unity
   playerPath: C:/Projetos/Mestrado/VR_AR/ARPlaneDetection/release.apk

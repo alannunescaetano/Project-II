@@ -14,10 +14,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         content_len = int(self.headers.get('Content-Length'))
         body = self.rfile.read(content_len)
 
-        predictionResult = Prediction.predict()
+        #predictionResult = Prediction.predict()
 
         self._set_headers()
-        self.wfile.write(json.dumps(predictionResult.__dict__).encode())
+        #self.wfile.write(json.dumps(predictionResult.__dict__).encode())
+        self.wfile.write("Ok")
 
         print(json.dumps(predictionResult.__dict__).encode())
 

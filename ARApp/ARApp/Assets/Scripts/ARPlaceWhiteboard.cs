@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -18,7 +16,7 @@ public class ARPlaceWhiteboard : MonoBehaviour
     
     void Start()
     {
-        
+
     }
 
     private void Awake()
