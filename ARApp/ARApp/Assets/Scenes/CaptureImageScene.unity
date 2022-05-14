@@ -1059,6 +1059,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Button: {fileID: 1052125777}
+  CaptureArea: {fileID: 718655230}
+  camera: {fileID: 1032997829}
 --- !u!1 &1171437718
 GameObject:
   m_ObjectHideFlags: 0

@@ -82,3 +82,5 @@ TextIdentificationService/datasets/
 ARApp/ARApp/Library/Il2cppBuildCache/
 ARApp/ARApp/Library/Artifacts/
 ARApp/ARApp/Temp
+*.log
+*.log
