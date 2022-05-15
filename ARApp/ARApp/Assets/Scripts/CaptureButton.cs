@@ -38,16 +38,13 @@ public class CaptureButton : MonoBehaviour
         
         var texture = ScreenCapture.CaptureScreenshotAsTexture();
 
-        _textLog.text = "1";
         Vector3 screenPos = CaptureArea.transform.position;
         
-        _textLog.text = "2";
         int x = (int) screenPos.x - 150;
         int y = (int) screenPos.y - 100;
         int width = (int) ((RectTransform) CaptureArea.transform).rect.width;
         int height = (int) ((RectTransform) CaptureArea.transform).rect.height;
         
-        _textLog.text = "x: "+x +" - y: "+y;
         Color[] c = texture.GetPixels
         (
             x, 
@@ -80,8 +77,6 @@ public class CaptureButton : MonoBehaviour
             req.method = "POST";
             
             yield return req.SendWebRequest();
-
-            _textLog.text += "\n"+req.isDone+ " - " +req.error;
             
             if (req.result != UnityWebRequest.Result.Success)
             {
