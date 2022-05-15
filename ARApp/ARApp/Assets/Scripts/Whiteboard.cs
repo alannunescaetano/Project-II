@@ -3,16 +3,15 @@ using UnityEngine;
 
 public class Whiteboard : MonoBehaviour
 {
+    
     private TextMeshPro _log;
-    public bool isVisible;
+    private bool _started;
     private TextMeshPro _text;
-    private Syllable[] syllables;
-    private string[] strSyllables = { "PA", "LA", "VRA" };
-    private bool spoke = false;
-    
+    private Syllable[] _syllables;
+    private string[] _strSyllables = { "PA", "LA", "VRA" };
+    private bool _spoke = false;
     private int x = 0;
-    
-    private int highlightedSyllableIndex = 0;
+    private int _highlightedSyllableIndex = 0;
     
     void Start()
     {
@@ -22,35 +21,35 @@ public class Whiteboard : MonoBehaviour
         var goLog = GameObject.FindGameObjectsWithTag("Log")[0];
         _log = goLog.GetComponent<TextMeshPro>();
         
-        buildSyllables(strSyllables);
-        writeWordOnBoard(syllables);
+        buildSyllables(_strSyllables);
+        writeWordOnBoard(_syllables);
     }
 
     void Update()
     {
-        if (!isVisible)
+        if (!_started)
             return;
         
         x++;
         if (x > 60)
         {
             x = 0;
-            spoke = false;
-            highlightedSyllableIndex++;
+            _spoke = false;
+            _highlightedSyllableIndex++;
 
-            if (highlightedSyllableIndex > strSyllables.Length)
-                highlightedSyllableIndex = 0;
+            if (_highlightedSyllableIndex > _strSyllables.Length)
+                _started = false;
         }
         
-        highlightSyllable(highlightedSyllableIndex);
+        highlightSyllable(_highlightedSyllableIndex);
     }
 
     private void highlightSyllable(int highlightedSyllableIndex)
     {
-        var highlightedSyllable = syllables[highlightedSyllableIndex];
+        var highlightedSyllable = _syllables[highlightedSyllableIndex];
         highlightCharacters(highlightedSyllable.InitialIndex, highlightedSyllable.EndIndex);
 
-        if (!spoke)
+        if (!_spoke)
         {
             TTSManager.SetLocale("en");
             //TTSManager.SetSpeechRate(1);
@@ -58,19 +57,19 @@ public class Whiteboard : MonoBehaviour
             TTSManager.Speak(highlightedSyllable.Text);
             _log.text = "\n"+highlightedSyllable.Text.Trim();
             _log.text = "";
-            spoke = true;
+            _spoke = true;
         }
     }
 
     private void buildSyllables(string[] strSyllables)
     {
-        syllables = new Syllable[strSyllables.Length];
+        _syllables = new Syllable[strSyllables.Length];
 
         int acumulatedIndex = 0;
             
         for (int i = 0; i < strSyllables.Length; i++)
         {
-            syllables[i] = new Syllable()
+            _syllables[i] = new Syllable()
             {
                 Text = strSyllables[i],
                 InitialIndex = acumulatedIndex,
@@ -142,6 +141,13 @@ public class Whiteboard : MonoBehaviour
         }
         
         _text.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+    }
+
+    public void StartSpelling()
+    {
+        _started = true;
+        _highlightedSyllableIndex = 0;
+
     }
     
     private class Syllable

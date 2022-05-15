@@ -2,7 +2,7 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import simplejson as simplejson
 
-from ocr.prediction.prediction import Prediction
+from ocr.prediction.prediction import Prediction, PredictionResult
 import json
 
 class RequestHandler(BaseHTTPRequestHandler):
@@ -19,13 +19,18 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         print(body)
 
-        #predictionResult = Prediction.predict()
+        predictionResult = Prediction.predict()
 
         self._set_headers()
         #self.wfile.write(json.dumps(predictionResult.__dict__).encode())
-        self.wfile.write(b'Ok')
+        #self.wfile.write(b'Ok')
 
-        #print(json.dumps(predictionResult.__dict__).encode())
+        predictionResult = PredictionResult()
+        predictionResult.chars.append("BA")
+        predictionResult.chars.append("NA")
+        predictionResult.chars.append("NA")
+
+        print(json.dumps(predictionResult.__dict__).encode())
 
 def run():
     server_address = ('192.168.1.22', 8088)

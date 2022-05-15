@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 
@@ -16,15 +17,15 @@ public class CaptureButton : MonoBehaviour
     private TextMeshPro _textLog;
     public GameObject CaptureArea;
     public Camera camera;
+    public GameObject Label;
+    private TextMeshPro _labelText;
     
     void Start()
     {
         Button _button = Button.GetComponent<Button>();
         _button.onClick.AddListener(onCaptureClick);
         
-        var goLog = GameObject.FindGameObjectsWithTag("Log")[0];
-        _textLog = goLog.GetComponent<TextMeshPro>();
-        _textLog.text = "Start";
+        _labelText = Label.GetComponent<TextMeshPro>();
     }
 
     private void onCaptureClick()
@@ -80,11 +81,11 @@ public class CaptureButton : MonoBehaviour
             
             if (req.result != UnityWebRequest.Result.Success)
             {
-                _textLog.text += "\n" + req.result + " --- " +  req.error;
+                _textLog.text = "It wasn't possible to identify the word. Can you try again?";
             }
             else
             {
-                _textLog.text += "\n Sucess";
+                SceneManager.LoadScene(sceneName:"SyllablesScene");
             }
         }
     }
