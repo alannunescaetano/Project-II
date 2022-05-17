@@ -79,6 +79,7 @@ public class ARPlaceWhiteboard : MonoBehaviour
     
     private void disablePlanes()
     {
+        _arPlaneManager.enabled = false;
         foreach (var plane in _arPlaneManager.trackables)
             plane.gameObject.SetActive(false);
     }

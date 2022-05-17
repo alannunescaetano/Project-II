@@ -43,7 +43,7 @@ public class CaptureButton : MonoBehaviour
         
         var texture = ScreenCapture.CaptureScreenshotAsTexture();
 
-        Vector3 screenPos = CaptureArea.transform.position;//RectTransformUtility.WorldToScreenPoint(Camera.main, CaptureArea.transform.position);
+        Vector3 screenPos = CaptureArea.transform.position;
         
         int width = (int) ((RectTransform) CaptureArea.transform).rect.width;
         int height = (int) ((RectTransform) CaptureArea.transform).rect.height;

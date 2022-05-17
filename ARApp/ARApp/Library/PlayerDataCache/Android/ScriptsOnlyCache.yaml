@@ -891,7 +891,7 @@ ScriptsOnlyBuild:
     className: ARRaycast
   - hash:
       serializedVersion: 2
-      Hash: 0851a7fd5a1945b36611ff1dfd14e155
+      Hash: c36bfc0586e9000d3c205f268a081be8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CaptureButton
