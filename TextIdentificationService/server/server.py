@@ -26,9 +26,11 @@ class RequestHandler(BaseHTTPRequestHandler):
         #self.wfile.write(b'Ok')
 
         predictionResult = PredictionResult()
-        predictionResult.chars.append("BA")
-        predictionResult.chars.append("NA")
-        predictionResult.chars.append("NA")
+        predictionResult.Syllables.append("BA")
+        predictionResult.Syllables.append("NA")
+        predictionResult.Syllables.append("NA")
+
+        self.wfile.write(json.dumps(predictionResult.__dict__).encode())
 
         print(json.dumps(predictionResult.__dict__).encode())
 

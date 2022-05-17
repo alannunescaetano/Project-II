@@ -1,31 +1,34 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using Model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.XR.ARFoundation;
 
 public class CaptureButton : MonoBehaviour
 {
     public Button Button;
 
-    private TextMeshPro _textLog;
     public GameObject CaptureArea;
     public Camera camera;
     public GameObject Label;
-    private TextMeshPro _labelText;
+    private TextMeshProUGUI _labelText;
+
+    public static Word IdentifiedWord;
     
     void Start()
     {
+        DontDestroyOnLoad(this);
+        
+        IdentifiedWord = null;
+        
         Button _button = Button.GetComponent<Button>();
         _button.onClick.AddListener(onCaptureClick);
-        
-        _labelText = Label.GetComponent<TextMeshPro>();
+
+        _labelText = Label.GetComponent<TextMeshProUGUI>();
     }
 
     private void onCaptureClick()
@@ -76,16 +79,30 @@ public class CaptureButton : MonoBehaviour
         {
             req.SetRequestHeader("Content-Type", "application/json");
             req.method = "POST";
+            req.downloadHandler = new DownloadHandlerBuffer();
             
             yield return req.SendWebRequest();
             
-            if (req.result != UnityWebRequest.Result.Success)
+            if (req.result == UnityWebRequest.Result.Success)
             {
-                _textLog.text = "It wasn't possible to identify the word. Can you try again?";
+                Debug.Log("- "+req.downloadHandler.text);
+                Word word = JsonUtility.FromJson<Word>(req.downloadHandler.text);
+
+                Debug.Log(word == null);
+                Debug.Log(word.Syllables == null);
+                Debug.Log(word.Syllables.Count);
+                
+                if (word == null || word.Syllables == null || word.Syllables.Count == 0)
+                    _labelText.text = "Word not identified. \nTry again:";
+                else
+                {
+                    IdentifiedWord = word;
+                    SceneManager.LoadScene(sceneName:"SyllablesScene");
+                }
             }
             else
             {
-                SceneManager.LoadScene(sceneName:"SyllablesScene");
+                _labelText.text = "Error";
             }
         }
     }
@@ -94,4 +111,6 @@ public class CaptureButton : MonoBehaviour
     {
         public string Data;
     }
+
+
 }

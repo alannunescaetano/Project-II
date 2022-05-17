@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Model;
 using TMPro;
 using UnityEngine;
 
@@ -8,20 +10,22 @@ public class Whiteboard : MonoBehaviour
     private bool _started;
     private TextMeshPro _text;
     private Syllable[] _syllables;
-    private string[] _strSyllables = { "PA", "LA", "VRA" };
     private bool _spoke = false;
     private int x = 0;
     private int _highlightedSyllableIndex = 0;
     
     void Start()
     {
+        TTSManager.SetLocale("en");
+        TTSManager.BootUpTTS();
+        
         var goText = GameObject.FindGameObjectsWithTag("Text")[0];
         _text = goText.GetComponent<TextMeshPro>();
         
         var goLog = GameObject.FindGameObjectsWithTag("Log")[0];
         _log = goLog.GetComponent<TextMeshPro>();
         
-        buildSyllables(_strSyllables);
+        buildSyllables(CaptureButton.IdentifiedWord.Syllables);
         writeWordOnBoard(_syllables);
     }
 
@@ -37,7 +41,7 @@ public class Whiteboard : MonoBehaviour
             _spoke = false;
             _highlightedSyllableIndex++;
 
-            if (_highlightedSyllableIndex > _strSyllables.Length)
+            if (_highlightedSyllableIndex > _syllables.Length)
                 _started = false;
         }
         
@@ -51,23 +55,25 @@ public class Whiteboard : MonoBehaviour
 
         if (!_spoke)
         {
-            TTSManager.SetLocale("en");
             //TTSManager.SetSpeechRate(1);
             //TTSManager.SetPitch(1);
-            TTSManager.Speak(highlightedSyllable.Text);
-            _log.text = "\n"+highlightedSyllable.Text.Trim();
-            _log.text = "";
-            _spoke = true;
+            if (TTSManager.IsBootedUp())
+            {
+                TTSManager.Speak(highlightedSyllable.Text);
+                _log.text = "\n"+highlightedSyllable.Text.Trim();
+                _log.text = "";
+                _spoke = true;                
+            }    
         }
     }
 
-    private void buildSyllables(string[] strSyllables)
+    private void buildSyllables(List<string> strSyllables)
     {
-        _syllables = new Syllable[strSyllables.Length];
+        _syllables = new Syllable[strSyllables.Count];
 
         int acumulatedIndex = 0;
             
-        for (int i = 0; i < strSyllables.Length; i++)
+        for (int i = 0; i < strSyllables.Count; i++)
         {
             _syllables[i] = new Syllable()
             {

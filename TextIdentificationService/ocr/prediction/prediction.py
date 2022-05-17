@@ -9,7 +9,7 @@ import json
 
 class PredictionResult:
     def __init__(self):
-        self.chars = []
+        self.Syllables = []
  
 class Prediction:
     @staticmethod
@@ -77,6 +77,6 @@ class Prediction:
 
             if prob > 0.8:
                 print(labelNames[i])
-                predictionResult.chars.append(labelNames[i])
+                predictionResult.Syllables.append(labelNames[i])
 
         return predictionResult
