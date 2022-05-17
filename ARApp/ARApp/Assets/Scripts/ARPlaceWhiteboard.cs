@@ -16,7 +16,7 @@ public class ARPlaceWhiteboard : MonoBehaviour
     public Button RestartButton;
     
     private ARPlaneManager _arPlaneManager;
-    private TextMeshPro _labelText;
+    private TextMeshProUGUI _labelText;
     private Whiteboard _whiteboard;
     private ARRaycastManager _arRaycastManager;
     private Vector2 _touchPosition;
@@ -28,7 +28,7 @@ public class ARPlaceWhiteboard : MonoBehaviour
     {
         _arRaycastManager = GetComponent<ARRaycastManager>();
         _camera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        _labelText = Label.GetComponent<TextMeshPro>();
+        _labelText = Label.GetComponent<TextMeshProUGUI>();
         _arPlaneManager = GetComponent<ARPlaneManager>();
         
         RepeatButton.onClick.AddListener(repeat);
@@ -46,7 +46,7 @@ public class ARPlaceWhiteboard : MonoBehaviour
 
     private void placeBoard()
     {
-        Vector2 position = new Vector2(Screen.width / 2, Screen.height / 4);
+        Vector2 position = new Vector2(Screen.width / 2, Screen.height / 3);
         
         if (_arRaycastManager.Raycast(position, hits, TrackableType.PlaneWithinPolygon))
         {

@@ -1,0 +1,2 @@
+C:\Projetos\Mestrado\Project II\SourceCode\ARApp\ARApp\obj\Debug\Assembly-CSharp.csproj.AssemblyReference.cache
+C:\Projetos\Mestrado\Project II\SourceCode\ARApp\ARApp\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

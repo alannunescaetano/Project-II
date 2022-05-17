@@ -35,7 +35,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         print(json.dumps(predictionResult.__dict__).encode())
 
 def run():
-    server_address = ('192.168.1.22', 8088)
+    server_address = ('10.72.252.23', 8088)
     httpd = HTTPServer(server_address, RequestHandler)
     httpd.serve_forever()
 

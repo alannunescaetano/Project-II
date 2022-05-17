@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Model;
 using TMPro;
@@ -17,13 +18,13 @@ public class Whiteboard : MonoBehaviour
     void Start()
     {
         TTSManager.SetLocale("en");
-        TTSManager.BootUpTTS();
         
         var goText = GameObject.FindGameObjectsWithTag("Text")[0];
         _text = goText.GetComponent<TextMeshPro>();
         
         var goLog = GameObject.FindGameObjectsWithTag("Log")[0];
         _log = goLog.GetComponent<TextMeshPro>();
+        _log.text = String.Empty;
         
         buildSyllables(CaptureButton.IdentifiedWord.Syllables);
         writeWordOnBoard(_syllables);
@@ -60,8 +61,6 @@ public class Whiteboard : MonoBehaviour
             if (TTSManager.IsBootedUp())
             {
                 TTSManager.Speak(highlightedSyllable.Text);
-                _log.text = "\n"+highlightedSyllable.Text.Trim();
-                _log.text = "";
                 _spoke = true;                
             }    
         }

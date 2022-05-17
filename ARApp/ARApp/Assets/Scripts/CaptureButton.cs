@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using Model;
 using TMPro;
 using UnityEngine;
@@ -13,11 +12,13 @@ public class CaptureButton : MonoBehaviour
     public Button Button;
 
     public GameObject CaptureArea;
-    public Camera camera;
+    public Camera Camera;
     public GameObject Label;
     private TextMeshProUGUI _labelText;
 
     public static Word IdentifiedWord;
+
+    private const string SERVER = "http://10.72.252.23:8088/";
     
     void Start()
     {
@@ -42,12 +43,12 @@ public class CaptureButton : MonoBehaviour
         
         var texture = ScreenCapture.CaptureScreenshotAsTexture();
 
-        Vector3 screenPos = CaptureArea.transform.position;
+        Vector3 screenPos = CaptureArea.transform.position;//RectTransformUtility.WorldToScreenPoint(Camera.main, CaptureArea.transform.position);
         
-        int x = (int) screenPos.x - 150;
-        int y = (int) screenPos.y - 100;
         int width = (int) ((RectTransform) CaptureArea.transform).rect.width;
         int height = (int) ((RectTransform) CaptureArea.transform).rect.height;
+        int x = (int) screenPos.x - (width/2);
+        int y = (int) screenPos.y - (height/2);
         
         Color[] c = texture.GetPixels
         (
@@ -75,7 +76,7 @@ public class CaptureButton : MonoBehaviour
         ImageData imageData = new ImageData { Data = image };
         string json = JsonUtility.ToJson(imageData);
         
-        using (UnityWebRequest req = UnityWebRequest.Put("http://192.168.1.22:8088/", json))
+        using (UnityWebRequest req = UnityWebRequest.Put(SERVER, json))
         {
             req.SetRequestHeader("Content-Type", "application/json");
             req.method = "POST";
