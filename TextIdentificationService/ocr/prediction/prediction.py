@@ -13,15 +13,11 @@ class PredictionResult:
  
 class Prediction:
     @staticmethod
-    def predict():
+    def predict(image):
         model_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\model\trained_ocr_only_capital.model"
         print("[INFO] loading OCR model...")
         model = load_model(model_path)
 
-        #image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\biblioteca.png"
-        image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\afastese.png"
-        #image_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\images\reservado.png"
-        image = cv2.imread(image_path)
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
 
