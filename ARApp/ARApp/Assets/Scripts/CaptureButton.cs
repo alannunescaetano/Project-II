@@ -18,7 +18,7 @@ public class CaptureButton : MonoBehaviour
 
     public static Word IdentifiedWord;
 
-    private const string SERVER = "http://10.72.252.23:8088/";
+    private const string SERVER = "http://192.168.1.18:8088/";
     
     void Start()
     {
@@ -34,6 +34,7 @@ public class CaptureButton : MonoBehaviour
 
     private void onCaptureClick()
     {
+        CaptureArea.GetComponent<CanvasRenderer>().SetAlpha(0);
         StartCoroutine(takeSnapshot());
     }
 
@@ -106,6 +107,8 @@ public class CaptureButton : MonoBehaviour
                 _labelText.text = "Error";
             }
         }
+        
+        CaptureArea.GetComponent<CanvasRenderer>().SetAlpha(1);
     }
 
     private class ImageData

@@ -21,40 +21,27 @@ class RequestHandler(BaseHTTPRequestHandler):
         dict = json.loads(body)
         base64Image = dict["Data"]
 
-        print(base64Image)
-
         decodedImage = base64.b64decode(base64Image)
 
         nparr = np.fromstring(decodedImage, np.uint8)
-        decodedImage = cv2.imdecode(nparr, cv2.COLOR_BGR2GRAY)
 
-        gray = cv2.cvtColor(decodedImage, cv2.COLOR_BGR2GRAY)
-        blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-        (thresh, bwImage) = cv2.threshold(blurred, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
-
-        if(cv2.countNonZero(bwImage)):
-            
-
-        cv2.imshow('img', finalImage)
-        cv2.waitKey(0)
-
-        #predictionResult = Prediction.predict(decodedImage)
-        #print(json.dumps(predictionResult.__dict__).encode())
+        predictionResult = Prediction.predict(nparr)
+        print(json.dumps(predictionResult.__dict__).encode())
 
         self._set_headers()
         #self.wfile.write(json.dumps(predictionResult.__dict__).encode())
         #self.wfile.write(b'Ok')
 
         predictionResult = PredictionResult()
-        predictionResult.Syllables.append("BA")
-        predictionResult.Syllables.append("NA")
-        predictionResult.Syllables.append("NA")
+        #predictionResult.Syllables.append("BA")
+        #predictionResult.Syllables.append("NA")
+        #predictionResult.Syllables.append("NA")
 
         self.wfile.write(json.dumps(predictionResult.__dict__).encode())
 
 
 def run():
-    server_address = ('10.72.252.23', 8088)
+    server_address = ('192.168.1.18', 8088)
     httpd = HTTPServer(server_address, RequestHandler)
     httpd.serve_forever()
 
