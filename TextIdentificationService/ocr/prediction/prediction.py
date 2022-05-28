@@ -16,7 +16,7 @@ class Prediction:
     @staticmethod
     def predict(image):
         tf.config.run_functions_eagerly(True)
-        model_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\model\trained_ocr_only_capital.model"
+        model_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\model\trained_ocr_full_test_ABCD.model"
         print("[INFO] loading OCR model...")
         model = load_model(model_path)
 
@@ -31,9 +31,6 @@ class Prediction:
 
         blurred = cv2.GaussianBlur(bwImage, (5, 5), 0)
         edged = cv2.Canny(blurred, 30, 150)
-
-        #cv2.imshow('teste', bwImage)
-        #cv2.waitKey(0)
 
         cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         cnts = imutils.grab_contours(cnts)
@@ -81,7 +78,12 @@ class Prediction:
         predictionResult = PredictionResult()
 
         for (pred, (x, y, w, h)) in zip(preds, boxes):
+            print("pred")
+            print(pred)
+            print("===================================================================")
             i = np.argmax(pred)
+            print(i)
+            print(labelNames[i])
             prob = pred[i]
 
             if prob > 0.8:
