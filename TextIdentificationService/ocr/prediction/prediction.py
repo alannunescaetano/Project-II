@@ -16,7 +16,7 @@ class Prediction:
     @staticmethod
     def predict(image):
         tf.config.run_functions_eagerly(True)
-        model_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\model\trained_ocr_full_test_ABCD.model"
+        model_path = r"C:\Projetos\Mestrado\Project II\SourceCode\TextIdentificationService\model\trained_ocr_full.model"
         print("[INFO] loading OCR model...")
         model = load_model(model_path)
 
@@ -62,8 +62,8 @@ class Prediction:
                 padded = padded.astype("float32") / 255.0
                 padded = np.expand_dims(padded, axis=-1)
 
-                cv2.imshow('teste', padded)
-                cv2.waitKey(0)
+                #cv2.imshow('teste', padded)
+                #cv2.waitKey(0)
 
                 chars.append((padded, (x, y, w, h)))
 
@@ -78,15 +78,11 @@ class Prediction:
         predictionResult = PredictionResult()
 
         for (pred, (x, y, w, h)) in zip(preds, boxes):
-            print("pred")
-            print(pred)
-            print("===================================================================")
+
             i = np.argmax(pred)
-            print(i)
-            print(labelNames[i])
             prob = pred[i]
 
-            if prob > 0.8:
+            if prob > 0.5:
                 print(labelNames[i])
                 predictionResult.Syllables.append(labelNames[i])
 
