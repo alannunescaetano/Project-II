@@ -1,10 +1,9 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import cv2
 import numpy as np
 import base64
-from ocr.prediction.prediction import Prediction, PredictionResult
+from ocr.prediction.prediction import Prediction
 import json
-from PIL import Image
+from syllables import Syllables
 
 class RequestHandler(BaseHTTPRequestHandler):
     def _set_headers(self):
@@ -25,20 +24,20 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         nparr = np.fromstring(decodedImage, np.uint8)
 
-        predictionResult = Prediction.predict(nparr)
+        word = Prediction.predict(nparr)
+        print("Predicted: "+word)
+
+        predictionResult = PredictionResult()
+        predictionResult.Syllables = Syllables.getSyllables(word)
+
         print(json.dumps(predictionResult.__dict__).encode())
 
         self._set_headers()
-        #self.wfile.write(json.dumps(predictionResult.__dict__).encode())
-        #self.wfile.write(b'Ok')
-
-        predictionResult = PredictionResult()
-        #predictionResult.Syllables.append("BA")
-        #predictionResult.Syllables.append("NA")
-        #predictionResult.Syllables.append("NA")
-
         self.wfile.write(json.dumps(predictionResult.__dict__).encode())
 
+class PredictionResult:
+    def __init__(self):
+        self.Syllables = []
 
 def run():
     server_address = ('192.168.1.18', 8088)

@@ -1,16 +1,9 @@
-# import the necessary packages
-import cv2
 import numpy as np
 import imutils
 import tensorflow as tf
 from imutils.contours import sort_contours
 from cv2 import cv2
 from keras.models import load_model
-import json
-
-class PredictionResult:
-    def __init__(self):
-        self.Syllables = []
  
 class Prediction:
     @staticmethod
@@ -75,15 +68,13 @@ class Prediction:
         labelNames = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
         labelNames = [l for l in labelNames]
 
-        predictionResult = PredictionResult()
+        prediction = ""
 
         for (pred, (x, y, w, h)) in zip(preds, boxes):
-
             i = np.argmax(pred)
             prob = pred[i]
 
             if prob > 0.5:
-                print(labelNames[i])
-                predictionResult.Syllables.append(labelNames[i])
+                prediction += labelNames[i]
 
-        return predictionResult
+        return prediction.lower()
