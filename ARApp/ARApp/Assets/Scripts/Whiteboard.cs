@@ -17,8 +17,9 @@ public class Whiteboard : MonoBehaviour
     
     void Start()
     {
+        TTSManager.BootUpTTS();
         TTSManager.SetLocale("en");
-        
+
         var goText = GameObject.FindGameObjectsWithTag("Text")[0];
         _text = goText.GetComponent<TextMeshPro>();
         

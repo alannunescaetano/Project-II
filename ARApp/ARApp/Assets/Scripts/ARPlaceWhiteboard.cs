@@ -36,6 +36,8 @@ public class ARPlaceWhiteboard : MonoBehaviour
         
         RepeatButton.enabled = false;
         RestartButton.enabled = false;
+        
+        Handheld.StopActivityIndicator();
     }
 
     void Update()

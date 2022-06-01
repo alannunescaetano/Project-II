@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Model;
 using TMPro;
 using UnityEngine;
@@ -40,6 +41,7 @@ public class CaptureButton : MonoBehaviour
 
     private IEnumerator takeSnapshot()
     {
+        _labelText.text = "Processing...";
         yield return new WaitForEndOfFrame();
         
         var texture = ScreenCapture.CaptureScreenshotAsTexture();
@@ -76,7 +78,7 @@ public class CaptureButton : MonoBehaviour
 
         ImageData imageData = new ImageData { Data = image };
         string json = JsonUtility.ToJson(imageData);
-        
+
         using (UnityWebRequest req = UnityWebRequest.Put(SERVER, json))
         {
             req.SetRequestHeader("Content-Type", "application/json");
@@ -93,9 +95,11 @@ public class CaptureButton : MonoBehaviour
                 Debug.Log(word == null);
                 Debug.Log(word.Syllables == null);
                 Debug.Log(word.Syllables.Count);
-                
+
                 if (word == null || word.Syllables == null || word.Syllables.Count == 0)
+                {
                     _labelText.text = "Word not identified. \nTry again:";
+                }
                 else
                 {
                     IdentifiedWord = word;
@@ -115,6 +119,4 @@ public class CaptureButton : MonoBehaviour
     {
         public string Data;
     }
-
-
 }
