@@ -12,12 +12,11 @@ public class Whiteboard : MonoBehaviour
     private TextMeshPro _text;
     private Syllable[] _syllables;
     private bool _spoke = false;
-    private int x = 0;
+    private int framesToWait = 0;
     private int _highlightedSyllableIndex = 0;
     
     void Start()
     {
-        TTSManager.BootUpTTS();
         TTSManager.SetLocale("en");
 
         var goText = GameObject.FindGameObjectsWithTag("Text")[0];
@@ -36,10 +35,10 @@ public class Whiteboard : MonoBehaviour
         if (!_started)
             return;
         
-        x++;
-        if (x > 60)
+        framesToWait++;
+        if (framesToWait > 60)
         {
-            x = 0;
+            framesToWait = 0;
             _spoke = false;
             _highlightedSyllableIndex++;
 

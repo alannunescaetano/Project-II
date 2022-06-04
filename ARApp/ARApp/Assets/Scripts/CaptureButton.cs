@@ -31,6 +31,8 @@ public class CaptureButton : MonoBehaviour
         _button.onClick.AddListener(onCaptureClick);
 
         _labelText = Label.GetComponent<TextMeshProUGUI>();
+
+        TTSManager.BootUpTTS();
     }
 
     private void onCaptureClick()
